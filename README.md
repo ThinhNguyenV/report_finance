@@ -66,9 +66,10 @@ Monitoring order fulfillment and shipping efficiency:
 ## 📂 Project Structure
 ```text
 ├── data/
-│   └── Database-Q3_2020.xlsx       # Raw source file
-├── process_data.ipynb              # ETL script (Python)
-├── Q3.pbix                         # Power BI Dashboard file
-├── Processed_MKT_Q3.csv            # Cleaned Marketing metrics
-├── Processed_Sales_Q3.csv          # Standardized Sales/Lead data
-└── Processed_VanDon_Q3.csv         # Cleaned Shipping & Revenue data
+│   ├── Database-Q3_2020.xlsx       # Raw source data (Input)
+│   ├── Processed_MKT_Q3.csv        # Processed Marketing data (Output)
+│   ├── Processed_Sales_Q3.csv      # Processed Sales/Lead data (Output)
+│   └── Processed_VanDon_Q3.csv     # Processed Shipping data (Output)
+├── process_data.ipynb              # ETL script (Python/Pandas)
+├── Q3.pbix                         # Integrated Power BI Dashboard
+└── README.md                       # Project documentation
