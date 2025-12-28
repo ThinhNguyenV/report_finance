@@ -1,91 +1,93 @@
-# Báo Cáo Phân Tích và Dự Báo Tài Chính
+# Financial Analysis and Forecasting Report
 
-**Nguồn Dữ liệu:** `Database-Q3_2020.xlsx` (Quý 3 năm 2020)
+**Data Source:** `Database-Q3_2020.xlsx` (Quarter 3, 2020)
 
-## 1. Tóm Tắt Điều Hành
+## 1. Executive Summary
 
-Báo cáo này trình bày kết quả phân tích dữ liệu tài chính từ Quý 3 năm 2020 và dự báo doanh thu cho 30 ngày tiếp theo (từ 03/10/2020 đến 01/11/2020).
+This report presents the results of the financial data analysis from Q3 2020 and the revenue forecast for the next 30 days (from 10/03/2020 to 11/01/2020).
 
-Phân tích cho thấy **Doanh thu** có xu hướng biến động mạnh theo ngày, với một số đỉnh điểm đáng chú ý. Mô hình dự báo được xây dựng dựa trên thuật toán **Random Forest Regressor** sử dụng các đặc trưng chuỗi thời gian (như ngày trong tuần, ngày trong tháng, và các giá trị doanh thu trễ).
+Analysis shows that **Revenue** tends to fluctuate strongly by day, with several notable peaks. The forecasting model was built based on the **Random Forest Regressor** algorithm using time-series features (such as day of the week, day of the month, and lagged revenue values).
 
-**Tổng Doanh thu Dự báo** cho 30 ngày tiếp theo là **680.565.999 VNĐ**.
+**Total Forecasted Revenue** for the next 30 days is **680,565,999 VND**.
 
-## 2. Phân Tích Dữ Liệu Lịch Sử (Q3 2020)
+## 2. Historical Data Analysis (Q3 2020)
 
-Dữ liệu được tổng hợp từ các sheet **MKT** và **Sales** để tạo ra một chuỗi thời gian hàng ngày về **Chi phí Marketing** và **Doanh thu**.
+Data was aggregated from the **MKT** and **Sales** sheets to create a daily time series of **Marketing Costs** and **Revenue**.
 
-### 2.1. Xu Hướng Doanh Thu và Chi Phí
+### 2.1. Revenue and Cost Trends
 
-Biểu đồ dưới đây minh họa xu hướng hàng ngày của Doanh thu (từ sheet MKT) và Chi phí Marketing trong Quý 3 năm 2020.
+The chart below illustrates the daily trends of Revenue (from the MKT sheet) and Marketing Costs in Quarter 3 of 2020.
 
-![Xu hướng Tài chính Q3 2020](predict/finance_trend.png)
 
-**Nhận xét:**
-*   **Doanh thu** (đường màu xanh) có sự biến động lớn, đạt đỉnh cao nhất vào khoảng cuối tháng 8 và đầu tháng 9.
-*   **Chi phí Marketing** (đường màu cam) có xu hướng ổn định hơn, nhưng cũng có một số ngày chi phí tăng đột biến (đặc biệt là vào đầu tháng 8), có thể liên quan đến các chiến dịch quảng cáo lớn.
-*   Mối quan hệ giữa Chi phí Marketing và Doanh thu không hoàn toàn tuyến tính, cho thấy các yếu tố khác (như chất lượng chiến dịch, ngày trong tuần, v.v.) cũng ảnh hưởng đáng kể.
+![Financial Trends Q3 2020](predict/finance_trend.png)
 
-## 3. Mô Hình Dự Báo
+**Comments:**
+* **Revenue** (blue line) has large fluctuations, reaching its highest peak around late August and early September.
+* **Marketing Costs** (orange line) tend to be more stable, but there are some days with sudden cost spikes (especially in early August), possibly related to large advertising campaigns.
+* The relationship between Marketing Costs and Revenue is not entirely linear, indicating that other factors (such as campaign quality, day of the week, etc.) also have a significant impact.
 
-### 3.1. Phương Pháp Luận
+## 3. Forecasting Model
 
-*   **Mục tiêu:** Dự báo **Doanh thu** hàng ngày.
-*   **Mô hình:** **Random Forest Regressor** (Hồi quy Rừng Ngẫu nhiên). Mô hình này được chọn vì khả năng xử lý tốt các mối quan hệ phi tuyến tính và không yêu cầu tính dừng của chuỗi thời gian như các mô hình ARIMA truyền thống.
-*   **Đặc trưng (Features) sử dụng:**
-    *   Các đặc trưng thời gian: Ngày trong tuần, Ngày trong tháng, Tháng.
-    *   Các biến trễ (Lag features): Doanh thu của 7 ngày trước đó (`revenue_lag_1` đến `revenue_lag_7`).
-    *   Trung bình trượt: Trung bình doanh thu của 7 ngày gần nhất (`revenue_rolling_mean_7`).
+### 3.1. Methodology
 
-### 3.2. Đánh Giá Mô Hình
+* **Objective:** Forecast daily **Revenue**.
+* **Model:** **Random Forest Regressor**. This model was chosen for its ability to handle non-linear relationships well and its lack of requirement for time-series stationarity compared to traditional ARIMA models.
+* **Features used:**
+    * Time features: Day of the week, Day of the month, Month.
+    * Lag features: Revenue from the 7 previous days (`revenue_lag_1` to `revenue_lag_7`).
+    * Rolling mean: Average revenue of the 7 most recent days (`revenue_rolling_mean_7`).
 
-Mô hình được huấn luyện trên 80% dữ liệu và kiểm tra trên 20% dữ liệu còn lại.
+### 3.2. Model Evaluation
 
-| Chỉ số Đánh giá | Giá trị (VNĐ) |
+The model was trained on 80% of the data and tested on the remaining 20%.
+
+| Evaluation Metric | Value (VND) |
 | :--- | :--- |
-| **Mean Absolute Error (MAE)** | 12.226.622 |
-| **Root Mean Squared Error (RMSE)** | 16.828.903 |
+| **Mean Absolute Error (MAE)** | 12,226,622 |
+| **Root Mean Squared Error (RMSE)** | 16,828,903 |
 
-MAE là sai số tuyệt đối trung bình, cho biết mức độ sai lệch trung bình của dự báo so với thực tế. Với MAE khoảng 12.2 triệu VNĐ, mô hình có mức độ chính xác chấp nhận được cho việc dự báo xu hướng tổng thể.
+MAE is the mean absolute error, indicating the average deviation of the forecast from reality. With an MAE of approximately 12.2 million VND, the model has an acceptable level of accuracy for forecasting the overall trend.
 
-## 4. Kết Quả Dự Báo
+## 4. Forecast Results
 
-Dự báo được thực hiện cho 30 ngày tiếp theo, bắt đầu từ ngày 03/10/2020.
+The forecast was performed for the next 30 days, starting from 10/03/2020.
 
-### 4.1. Tổng Quan Dự Báo
+### 4.1. Forecast Overview
 
-| Chỉ số | Giá trị |
+| Metric | Value |
 | :--- | :--- |
-| **Giai đoạn Dự báo** | 03/10/2020 - 01/11/2020 |
-| **Tổng Doanh thu Dự báo** | **680.565.999 VNĐ** |
-| **Doanh thu Trung bình Dự báo/ngày** | 22.685.533 VNĐ |
+| **Forecast Period** | 10/03/2020 - 11/01/2020 |
+| **Total Forecasted Revenue** | **680,565,999 VND** |
+| **Average Forecasted Revenue/day** | 22,685,533 VND |
 
-### 4.2. Xu Hướng Dự Báo Chi Tiết
+### 4.2. Detailed Forecast Trend
 
-Biểu đồ dưới đây kết hợp dữ liệu lịch sử và dự báo.
+The chart below combines historical data and the forecast.
 
-![Xu hướng Doanh thu Lịch sử và Dự báo](predict/finance_forecast_combined_trend.png)
 
-**Nhận xét về Dự báo:**
-*   **Xu hướng:** Doanh thu dự báo (đường đứt nét màu đỏ) cho thấy một xu hướng tương đối ổn định trong tháng tới, dao động quanh mức 20-30 triệu VNĐ/ngày.
-*   **So sánh:** Mức doanh thu dự báo này thấp hơn đáng kể so với các đỉnh điểm trong Quý 3 (đặc biệt là cuối tháng 8/đầu tháng 9), nhưng cao hơn mức đáy của chu kỳ. Điều này có thể phản ánh sự suy giảm tự nhiên sau một giai đoạn tăng trưởng mạnh hoặc sự thiếu vắng các yếu tố thúc đẩy doanh thu lớn trong dữ liệu trễ.
+![Historical and Forecasted Revenue Trend](predict/finance_forecast_combined_trend.png)
 
-## 5. Phụ Lục: Dữ Liệu Dự Báo Chi Tiết
+**Comments on the Forecast:**
+* **Trend:** Forecasted revenue (red dashed line) shows a relatively stable trend for the coming month, fluctuating around the level of 20-30 million VND/day.
+* **Comparison:** This forecasted revenue level is significantly lower than the peaks in Q3 (especially late August/early September), but higher than the troughs of the cycle. This may reflect a natural decline after a period of strong growth or the absence of factors driving large revenue in the lagged data.
 
-Dữ liệu dự báo chi tiết theo ngày đã được lưu trong tệp **`finance_forecast_next_month.csv`** đính kèm.
+## 5. Appendix: Detailed Forecast Data
 
-| Ngày | Doanh thu Dự báo (VNĐ) |
+Detailed daily forecast data has been saved in the attached **`finance_forecast_next_month.csv`** file.
+
+| Date | Forecasted Revenue (VND) |
 | :--- | :--- |
-| 2020-10-03 | 31.787.690 |
-| 2020-10-04 | 28.238.160 |
-| 2020-10-05 | 28.847.960 |
-| 2020-10-06 | 30.548.490 |
-| 2020-10-07 | 31.140.220 |
+| 2020-10-03 | 31,787,690 |
+| 2020-10-04 | 28,238,160 |
+| 2020-10-05 | 28,847,960 |
+| 2020-10-06 | 30,548,490 |
+| 2020-10-07 | 31,140,220 |
 | ... | ... |
-| 2020-11-01 | 24.288.070 |
+| 2020-11-01 | 24,288,070 |
 
-## 6. Khuyến Nghị
+## 6. Recommendations
 
-Để cải thiện độ chính xác của mô hình trong tương lai, cần xem xét:
-1.  **Thêm Đặc trưng:** Đưa thêm các đặc trưng liên quan đến **Chi phí Marketing** và **Paid Revenue 1** vào mô hình dự báo Doanh thu, vì chúng có thể là các biến giải thích quan trọng.
-2.  **Mô hình Chuyên sâu:** Thử nghiệm các mô hình chuỗi thời gian chuyên sâu hơn như Prophet của Facebook hoặc các mô hình mạng nơ-ron hồi quy (RNN/LSTM) nếu dữ liệu lịch sử dài hơn.
-3.  **Phân tích Nguyên nhân:** Điều tra nguyên nhân của các đỉnh doanh thu và chi phí đột biến để có thể đưa các sự kiện này vào mô hình dưới dạng biến ngoại sinh (exogenous variables).
+To improve the accuracy of the model in the future, it is necessary to consider:
+1.  **Add Features:** Include more features related to **Marketing Costs** and **Paid Revenue 1** into the Revenue forecasting model, as they can be important explanatory variables.
+2.  **In-depth Models:** Test more specialized time-series models such as Facebook's Prophet or recurrent neural network models (RNN/LSTM) if the historical data is longer.
+3.  **Cause Analysis:** Investigate the causes of revenue peaks and sudden cost spikes to include these events in the model as exogenous variables.
