@@ -5,7 +5,7 @@ import numpy as np
 import joblib
 
 # Đọc dữ liệu đã tiền xử lý
-df = pd.read_csv('data/preprocessed_finance_data.csv', index_col='Date')
+df = pd.read_csv('data/model/preprocessed_finance_data.csv', index_col='Date')
 
 # Xác định features và target
 # Dự báo 'Doanh thu'

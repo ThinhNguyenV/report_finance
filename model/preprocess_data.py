@@ -2,7 +2,7 @@ import pandas as pd
 import numpy as np
 
 # Load aggregated data
-df = pd.read_csv('data/daily_finance_summary.csv')
+df = pd.read_csv('data/model/daily_finance_summary.csv')
 df['Date'] = pd.to_datetime(df['Date'])
 df = df.sort_values('Date')
 

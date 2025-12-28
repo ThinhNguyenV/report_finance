@@ -64,7 +64,7 @@ for date in forecast_dates:
 
 # Save forecast results to CSV
 forecast_df = pd.DataFrame(forecast_results)
-forecast_df.to_csv('data/finance_forecast_next_month.csv', index=False)
+forecast_df.to_csv('data/data_model/finance_forecast_next_month.csv', index=False)
 
 print("Forecast for the next month has been completed.")
 print("\n--- Forecast Preview (First 5 Days) ---")

@@ -3,11 +3,11 @@ import matplotlib.pyplot as plt
 import numpy as np
 
 # Load historical data
-df_history = pd.read_csv('data/daily_finance_summary.csv')
+df_history = pd.read_csv('data/model/daily_finance_summary.csv')
 df_history['Date'] = pd.to_datetime(df_history['Date'])
 
 # Load forecasted data
-df_forecast = pd.read_csv('data/finance_forecast_next_month.csv')
+df_forecast = pd.read_csv('data/model/finance_forecast_next_month.csv')
 df_forecast['Date'] = pd.to_datetime(df_forecast['Date'])
 df_forecast.rename(columns={'Forecasted_Revenue': 'Doanh thu'}, inplace=True)
 
