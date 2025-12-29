@@ -85,6 +85,10 @@ report_finance/
 │   ├── Processed_MKT_Q3.csv
 │   ├── Processed_Sales_Q3.csv
 │   └── Processed_VanDon_Q3.csv
+├── data_pbi/                           # Processed data model
+│   ├── daily_finance_summary.csv
+│   ├── finance_forecast_next_month.csv
+│   └── preprocessed_finance_data.csv
 ├── model/                              # Python logic & ML assets
 │   ├── analyze/                        # Sub-analysis modules
 │   ├── analyze_data.py                 # Exploratory Data Analysis (EDA)
