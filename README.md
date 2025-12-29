@@ -91,6 +91,9 @@ report_finance/
 │   └── preprocessed_finance_data.csv
 ├── model/                              # Python logic & ML assets
 │   ├── analyze/                        # Sub-analysis modules
+│   │   ├── analyze_channels           
+│   │   ├── analyze_correlation.py      
+│   │   └── analyze_data.py             
 │   ├── analyze_data.py                 # Exploratory Data Analysis (EDA)
 │   ├── finance_forecast_model.pkl      # Saved Random Forest model
 │   ├── forecast_next_month.py          # Recursive forecasting script
