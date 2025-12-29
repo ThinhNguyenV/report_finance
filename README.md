@@ -100,8 +100,6 @@ report_finance/
 ├── predict/                            # Exported charts & images
 │   ├── finance_forecast_combined_trend.png
 │   └── finance_trend.png
-├── Báo Cáo Phân Tích Các Yếu Tố Phi Thời Gian.md
-├── Báo Cáo Phân Tích và Dự Báo Tài Chính.md
 ├── process_data.ipynb                  # Jupyter Notebook for experimentation
 ├── Q3.pbix                             # Power BI Dashboard
 └── README.md
